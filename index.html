@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПЕРЕХОДНИК ФУЛЛТЕЛЕР</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon: #00ffc8;
+    --neon2: #7c3aed;
+    --bg: #05060a;
+    --card: rgba(255,255,255,0.04);
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Фоновые пятна */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.5;
+    z-index: 0;
+    animation: float 12s ease-in-out infinite;
+  }
+  .blob1 { width: 500px; height: 500px; background: var(--neon2); top: -150px; left: -150px; }
+  .blob2 { width: 450px; height: 450px; background: #00ffc8; bottom: -150px; right: -120px; animation-delay: -6s; }
+  .blob3 { width: 350px; height: 350px; background: #ff2e88; top: 40%; left: 50%; opacity: 0.25; animation-delay: -3s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(40px,-40px) scale(1.15); }
+  }
+
+  /* Сетка на фоне */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+    background: var(--card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 28px;
+    padding: 48px 40px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+    animation: appear 0.8s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    background: rgba(0,255,200,0.08);
+    border: 1px solid rgba(0,255,200,0.25);
+    color: var(--neon);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--neon);
+    box-shadow: 0 0 12px var(--neon);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #fff 0%, var(--neon) 50%, var(--neon2) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 6s ease infinite;
+  }
+  @keyframes shine {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  p {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  p b { color: #fff; font-weight: 600; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 28px;
+    border-radius: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-main {
+    background: linear-gradient(135deg, var(--neon) 0%, #00d4ff 100%);
+    color: #041014;
+    box-shadow: 0 10px 40px rgba(0,255,200,0.35);
+    margin-bottom: 14px;
+  }
+  .btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 50px rgba(0,255,200,0.5);
+  }
+  .btn-main:active { transform: translateY(0); }
+
+  .btn-share {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .btn-share:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+  }
+
+  .btn svg { flex-shrink: 0; }
+
+  .footer-note {
+    margin-top: 28px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(0,255,200,0.15);
+    border: 1px solid rgba(0,255,200,0.4);
+    color: var(--neon);
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(12px);
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    z-index: 100;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 480px) {
+    .card { padding: 36px 24px; border-radius: 22px; }
+    p { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="card">
+  <div class="badge">
+    <span class="dot"></span> Online · Always Alive
+  </div>
+
+  <h1>ПЕРЕХОДНИК ФУЛЛТЕЛЕР</h1>
+
+  <p>
+    Канал со всеми <b>элитными сливами</b> появился в Telegram!<br>
+    Этот сайт всегда живёт и будет активным переходником.<br>
+    Забанили один канал? Заходите на сайт и переходите в наш новый канал!<br>
+    <b>Заявки принимаем автоматически.</b>
+  </p>
+
+  <!-- ⬇️ ВСТАВЬТЕ ССЫЛКУ НА КАНАЛ СЮДА ⬇️ -->
+  <a id="channelLink" href="https://t.me/ВАШ_КАНАЛ" target="_blank" rel="noopener" class="btn btn-main">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21.5 3.5L2.5 11l5.5 2 2 6.5 3-4.5 5.5 4 3-15.5z" fill="currentColor"/></svg>
+    Подписаться на канал
+  </a>
+
+  <button id="shareBtn" class="btn btn-share">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/>
+    </svg>
+    Поделиться переходником
+  </button>
+
+  <div class="footer-note">© ФУЛЛТЕЛЕР · Переходник живёт вечно</div>
+</div>
+
+<div class="toast" id="toast">Ссылка скопирована ✓</div>
+
+<script>
+  // ======================================================
+  // ⚠️ ВСТАВЬТЕ ЗДЕСЬ ССЫЛКУ НА ВАШ TELEGRAM-КАНАЛ ⚠️
+  // ======================================================
+  const CHANNEL_URL = "https://t.me/ВАШ_КАНАЛ";
+  // ======================================================
+
+  document.getElementById('channelLink').href = CHANNEL_URL;
+
+  const shareText = "Заходи в канал с элитными сливами и контентом 18+ https://fullteler.new.tg";
+  const toast = document.getElementById('toast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    // Web Share API (мобилки + современные браузеры)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'ФУЛЛТЕЛЕР',
+          text: shareText,
+        });
+      } catch (e) {
+        if (e.name !== 'AbortError') fallbackCopy();
+      }
+    } else {
+      fallbackCopy();
+    }
+  });
+
+  function fallbackCopy() {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(shareText)
+        .then(() => showToast('Текст скопирован — вставь в чат ✓'))
+        .catch(() => legacyCopy());
+    } else {
+      legacyCopy();
+    }
+  }
+
+  function legacyCopy() {
+    const ta = document.createElement('textarea');
+    ta.value = shareText;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('Текст скопирован — вставь в чат ✓');
+    } catch (e) {
+      showToast('Не удалось скопировать');
+    }
+    document.body.removeChild(ta);
+  }
+</script>
+</body>
+  </html>
